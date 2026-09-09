@@ -24,7 +24,6 @@ class Solution {
 
         while (row >= 0 && col < n) {
             if (matrix[row][col] <= target) {
-                // All elements from matrix[0][col] to matrix[row][col] are <= target
                 count += (row + 1);
                 col++;
             } else {
