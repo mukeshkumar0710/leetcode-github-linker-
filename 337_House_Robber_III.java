@@ -15,25 +15,19 @@
  */
 class Solution {
     public int rob(TreeNode root) {
-        int[] result = robSub(root);
-        return Math.max(result[0], result[1]);
+        int[] ans= solve(root);
+        return Math.max(ans[0],ans[1]);
     }
-
-    // Returns int[]{robThisNode, notRobThisNode}
-    private int[] robSub(TreeNode root) {
-        if (root == null) {
-            return new int[]{0, 0};
+    public int[] solve(TreeNode root){
+        if(root==null){
+            return new int[]{0,0};
         }
+        int[] left= solve(root.left);
+        int[] right= solve(root.right);
 
-        int[] left = robSub(root.left);
-        int[] right = robSub(root.right);
+        int rob= root.val+ left[1]+right[1];
+        int drob= Math.max(left[0], left[1])+Math.max(right[0], right[1]);
 
-        // Case 1: Rob this node -> cannot rob left or right children
-        int rob = root.val + left[1] + right[1];
-
-        // Case 2: Do not rob this node -> can either rob or not rob each child
-        int notRob = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
-
-        return new int[]{rob, notRob};
+        return new int[]{rob,drob};
     }
 }
